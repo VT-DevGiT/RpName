@@ -10,11 +10,11 @@ namespace RpName
         {
             { (int)RoleType.ClassD,         "D-%randomNum%%randomNum%%randomNum%%randomNum%-%randomChar%%randomChar% (%playerName%)" },
             { (int)RoleType.Scientist,      "Dr %SecondName% %randomChar%. (%playerName%)"},
-            { (int)RoleType.NtfCaptain,     "Captain %FirstName% %SecondName% (%playerName%)"},
-            { (int)RoleType.NtfSergeant,    "Sergeant %SecondName% (%playerName%)" },
+            { (int)RoleType.NtfCaptain,     "Captain %firstName% %SecondName% (%playerName%)"},
+            { (int)RoleType.NtfSergeant,    "Sergeant %secondName% (%playerName%)" },
             { (int)RoleType.NtfSpecialist,  "Specialist %SecondName% (%playerName%)" },
-            { (int)RoleType.NtfPrivate,     "Private %SecondName% (%playerName%)" },
-            { (int)RoleType.FacilityGuard,  "Security Officer %SecondName% (%playerName%)" },
+            { (int)RoleType.NtfPrivate,     "Private %secondName% (%playerName%)" },
+            { (int)RoleType.FacilityGuard,  "Security Officer %secondName% (%playerName%)" },
             { (int)RoleType.Scp049,         "SCP-049 (%playerName%)" },
             { (int)RoleType.Scp0492,        "SCP-049-2 (%playerName%)" },
             { (int)RoleType.Scp079,         "SCP-079 (%playerName%)" },
@@ -23,10 +23,10 @@ namespace RpName
             { (int)RoleType.Scp173,         "SCP-173 (%playerName%)" },
             { (int)RoleType.Scp93953,       "SCP-939-53 (%playerName%)" },
             { (int)RoleType.Scp93989,       "SCP-939-89 (%playerName%)" },
-            { (int)RoleType.ChaosConscript, "Conscript %SecondName% (%playerName%)" },
-            { (int)RoleType.ChaosMarauder,  "Marauder %SecondName% (%playerName%)" },
-            { (int)RoleType.ChaosRepressor, "Repressor %SecondName% (%playerName%)" },
-            { (int)RoleType.ChaosRifleman,  "Rifleman %SecondName% (%playerName%)" },
+            { (int)RoleType.ChaosConscript, "Conscript %secondName% (%playerName%)" },
+            { (int)RoleType.ChaosMarauder,  "Marauder %secondName% (%playerName%)" },
+            { (int)RoleType.ChaosRepressor, "Repressor %secondName% (%playerName%)" },
+            { (int)RoleType.ChaosRifleman,  "Rifleman %secondName% (%playerName%)" },
         };
 
         public List<string> FirstName { get; set; } = new List<string>()
