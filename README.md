@@ -1,5 +1,5 @@
 # RpName
-This plugin are plugin for SCP sl servers under the [synapse loader](https://github.com/SynapseSL/Synapse).Plugin inspired by [Exiled Rp Name](https://github.com/babyboucher/RPNames/releases/tag/v1.6.0.0.1). This plugin allows you to customize the name of the players according to their roles !
+This plugin are plugin for SCP sl servers under the [synapse loader](https://github.com/SynapseSL/Synapse). Plugin inspired by [Exiled Rp Name](https://github.com/babyboucher/RPNames). This plugin allows you to customize the name of the players according to their roles !
 
 
 ## Installation
