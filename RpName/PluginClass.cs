@@ -17,18 +17,18 @@ namespace RpName
         )]
     public class PluginClass : AbstractPlugin
     {
-        const string FristNameTag = "%firstName%";
-        const string SecondNameTag = "%secondName%";
-        const string RandomNumTag = "%randomNum%";
-        const string RandomCharTag = "%randomChar%";
-        const string PlayerNameTag = "%playerName%";
+        const string TAG_FristName = "%firstName%";
+        const string TAG_SecondName = "%secondName%";
+        const string TAG_RandomNum = "%randomNum%";
+        const string TAG_RandomChar = "%randomChar%";
+        const string TAG_PlayerName = "%playerName%";
 
         [Config(section = "RpName")]
         public static PluginConfig Config { get; set; }
 
         private static Random rnd = new Random();
 
-        public static string RandomFigure => rnd.Next(1, 9).ToString();
+        public static string RandomNum => rnd.Next(1, 9).ToString();
         public static string RandomChar => rnd.Next('a', 'z').ToString();
 
         public static string ReplaceFirst(string text, int index, int size, string replace)
@@ -47,35 +47,35 @@ namespace RpName
 
             if (PluginClass.Config.FirstName != null && PluginClass.Config.FirstName.Any())
             {
-                var firstName = PluginClass.Config.FirstName[UnityEngine.Random.Range(0, PluginClass.Config.FirstName.Count)];
-                rule = Regex.Replace(rule, FristNameTag, firstName, RegexOptions.IgnoreCase);
+                var index = UnityEngine.Random.Range(0, PluginClass.Config.FirstName.Count);
+                var firstName = PluginClass.Config.FirstName[index];
+                rule = Regex.Replace(rule, TAG_FristName, firstName, RegexOptions.IgnoreCase);
             }
             if (PluginClass.Config.SecondName != null && PluginClass.Config.SecondName.Any())
             {
-                var secondName = PluginClass.Config.SecondName[UnityEngine.Random.Range(0, PluginClass.Config.SecondName.Count)];
-                rule = Regex.Replace(rule, SecondNameTag, secondName, RegexOptions.IgnoreCase);
+                var index = UnityEngine.Random.Range(0, PluginClass.Config.SecondName.Count);
+                var secondName = PluginClass.Config.SecondName[index];
+                rule = Regex.Replace(rule, TAG_SecondName, secondName, RegexOptions.IgnoreCase);
             }
 
-            rule = Regex.Replace(rule, PlayerNameTag, playerName, RegexOptions.IgnoreCase);
+            rule = Regex.Replace(rule, TAG_PlayerName, playerName, RegexOptions.IgnoreCase);
+            int pos;
             
+            pos = rule.IndexOf(TAG_RandomNum, StringComparison.OrdinalIgnoreCase);
+            while (pos >= 0)
             {
-                int pos = rule.IndexOf(RandomFigure, System.StringComparison.OrdinalIgnoreCase);
-                while (pos >= 0)
-                {
-                    rule = ReplaceFirst(rule, pos, RandomFigure.Length, RandomFigure);
-                    pos = rule.IndexOf(RandomFigure, pos, System.StringComparison.OrdinalIgnoreCase);
-                }
+                rule = ReplaceFirst(rule, pos, TAG_RandomNum.Length, RandomNum);
+                pos = rule.IndexOf(TAG_RandomNum, pos, StringComparison.OrdinalIgnoreCase);
             }
             
+            pos = rule.IndexOf(TAG_RandomChar, StringComparison.OrdinalIgnoreCase);
+            while (pos >= 0)
             {
-                int pos = rule.IndexOf(RandomCharTag, System.StringComparison.OrdinalIgnoreCase);
-                while (pos >= 0)
-                {
-                    byte number = (byte)UnityEngine.Random.Range(1, 9);
-                    rule = ReplaceFirst(rule, pos, RandomCharTag.Length, RandomChar);
-                    pos = rule.IndexOf(RandomCharTag, pos, System.StringComparison.OrdinalIgnoreCase);
-                }
+                byte number = (byte)UnityEngine.Random.Range(1, 9);
+                rule = ReplaceFirst(rule, pos, TAG_RandomChar.Length, RandomChar);
+                pos = rule.IndexOf(TAG_RandomChar, pos, StringComparison.OrdinalIgnoreCase);
             }
+
             return rule;
         }
 

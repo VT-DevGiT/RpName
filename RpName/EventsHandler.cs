@@ -9,14 +9,13 @@ namespace RpName
         public EventsHandler()
         {
             Synapse.Api.Events.EventHandler.Get.Player.PlayerSetClassEvent += OnSetClass;
-
         }
 
         private void OnSetClass(PlayerSetClassEventArgs ev)
         {
             if (PluginClass.Config.RoleName != null && PluginClass.Config.RoleName.Any())
             {
-                var id = ev.Player.CustomRole != null ? ev.Player.RoleID : (int)ev.Role;
+                var id = ev.Player.RoleID;
 
                 var name = PluginClass.GetName(id, ev.Player.NickName);
                 if (string.IsNullOrEmpty(name))
