@@ -1,21 +1,20 @@
-﻿using Synapse.Api.Plugin;
+﻿using Neuron.Core.Plugins;
+using Synapse3.SynapseModule;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
+using YamlDotNet.Core.Tokens;
 
 namespace RpName
 {
-    [PluginInformation(
-        Name = "RpName",
-        Author = "VT",
-        Description = "a plugin that assigns rp names to the player based on their class",
-        LoadPriority = -1,
-        SynapseMajor = SynapseVersion.Major,
-        SynapseMinor = SynapseVersion.Minor,
-        SynapsePatch = SynapseVersion.Patch,
-        Version = "v1.0.0"
-        )]
-    public class PluginClass : AbstractPlugin
+    [Plugin(
+    Name = "RpName",
+    Description = "A plugin that assigns rp names to the player based on their class",
+    Version = "2.0.0",
+    Author = "VT"
+    )]
+    public class RpNamePlugin : ReloadablePlugin<RpNameConfig, RpNameTranslations>
     {
         const string TAG_FristName = "%firstName%";
         const string TAG_SecondName = "%secondName%";
@@ -23,15 +22,12 @@ namespace RpName
         const string TAG_RandomChar = "%randomChar%";
         const string TAG_PlayerName = "%playerName%";
 
-        [Config(section = "RpName")]
-        public static PluginConfig Config { get; set; }
+        private Random rnd = new Random();
 
-        private static Random rnd = new Random();
+        public string RandomNum => rnd.Next(1, 9).ToString();
+        public string RandomChar => rnd.Next('a', 'z').ToString();
 
-        public static string RandomNum => rnd.Next(1, 9).ToString();
-        public static string RandomChar => rnd.Next('a', 'z').ToString();
-
-        public static string ReplaceFirst(string text, int index, int size, string replace)
+        public string ReplaceFirst(string text, int index, int size, string replace)
         {
             if (index < 0)
             {
@@ -40,21 +36,21 @@ namespace RpName
             return text.Substring(0, index) + replace + text.Substring(index + size);
         }
 
-        public static string GetName(int id, string playerName)
+        public string GetName(uint id, string playerName)
         {
-            if (!PluginClass.Config.RoleName.TryGetValue(id, out string rule))
+            if (!Config.RoleName.TryGetValue(id, out string rule))
                 return null;
 
-            if (PluginClass.Config.FirstName != null && PluginClass.Config.FirstName.Any())
+            if (Config.FirstName != null && Config.FirstName.Any())
             {
-                var index = UnityEngine.Random.Range(0, PluginClass.Config.FirstName.Count);
-                var firstName = PluginClass.Config.FirstName[index];
+                var index = UnityEngine.Random.Range(0, Config.FirstName.Count);
+                var firstName = Config.FirstName[index];
                 rule = Regex.Replace(rule, TAG_FristName, firstName, RegexOptions.IgnoreCase);
             }
-            if (PluginClass.Config.SecondName != null && PluginClass.Config.SecondName.Any())
+            if (Config.SecondName != null && Config.SecondName.Any())
             {
-                var index = UnityEngine.Random.Range(0, PluginClass.Config.SecondName.Count);
-                var secondName = PluginClass.Config.SecondName[index];
+                var index = UnityEngine.Random.Range(0, Config.SecondName.Count);
+                var secondName = Config.SecondName[index];
                 rule = Regex.Replace(rule, TAG_SecondName, secondName, RegexOptions.IgnoreCase);
             }
 
@@ -77,12 +73,6 @@ namespace RpName
             }
 
             return rule;
-        }
-
-        public override void Load()
-        {
-            new EventsHandler();
-            base.Load();
         }
     }
 }

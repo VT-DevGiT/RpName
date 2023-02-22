@@ -1,32 +1,36 @@
-﻿using System.Collections.Generic;
+﻿using Neuron.Core.Meta;
+using PlayerRoles;
+using Syml;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace RpName
 {
-    public class PluginConfig
+    [Automatic]
+    [DocumentSection("Np Name")]
+    public class RpNameConfig : IDocumentSection
     {
         [Description("The id of the role and the new name, ref to the doc of synapse")]
-        public Dictionary<int, string> RoleName { get; set; } = new Dictionary<int, string>()
+        public Dictionary<uint, string> RoleName { get; set; } = new Dictionary<uint, string>()
         {
-            { (int)RoleType.ClassD,         "D-%randomNum%%randomNum%%randomNum%%randomNum%-%randomChar%%randomChar% (%playerName%)" },
-            { (int)RoleType.Scientist,      "Dr %SecondName% %randomChar%. (%playerName%)"},
-            { (int)RoleType.NtfCaptain,     "Captain %firstName% %SecondName% (%playerName%)"},
-            { (int)RoleType.NtfSergeant,    "Sergeant %secondName% (%playerName%)" },
-            { (int)RoleType.NtfSpecialist,  "Specialist %SecondName% (%playerName%)" },
-            { (int)RoleType.NtfPrivate,     "Private %secondName% (%playerName%)" },
-            { (int)RoleType.FacilityGuard,  "Security Officer %secondName% (%playerName%)" },
-            { (int)RoleType.Scp049,         "SCP-049 (%playerName%)" },
-            { (int)RoleType.Scp0492,        "SCP-049-2 (%playerName%)" },
-            { (int)RoleType.Scp079,         "SCP-079 (%playerName%)" },
-            { (int)RoleType.Scp096,         "SCP-096 (%playerName%)" },
-            { (int)RoleType.Scp106,         "SCP-106 (%playerName%)" },
-            { (int)RoleType.Scp173,         "SCP-173 (%playerName%)" },
-            { (int)RoleType.Scp93953,       "SCP-939-53 (%playerName%)" },
-            { (int)RoleType.Scp93989,       "SCP-939-89 (%playerName%)" },
-            { (int)RoleType.ChaosConscript, "Conscript %secondName% (%playerName%)" },
-            { (int)RoleType.ChaosMarauder,  "Marauder %secondName% (%playerName%)" },
-            { (int)RoleType.ChaosRepressor, "Repressor %secondName% (%playerName%)" },
-            { (int)RoleType.ChaosRifleman,  "Rifleman %secondName% (%playerName%)" },
+            { (uint)RoleTypeId.ClassD,         "D-%randomNum%%randomNum%%randomNum%%randomNum%-%randomChar%%randomChar% (%playerName%)" },
+            { (uint)RoleTypeId.Scientist,      "Dr %SecondName% %randomChar%. (%playerName%)"},
+            { (uint)RoleTypeId.NtfCaptain,     "Captain %firstName% %SecondName% (%playerName%)"},
+            { (uint)RoleTypeId.NtfSergeant,    "Sergeant %secondName% (%playerName%)" },
+            { (uint)RoleTypeId.NtfSpecialist,  "Specialist %SecondName% (%playerName%)" },
+            { (uint)RoleTypeId.NtfPrivate,     "Private %secondName% (%playerName%)" },
+            { (uint)RoleTypeId.FacilityGuard,  "Security Officer %secondName% (%playerName%)" },
+            { (uint)RoleTypeId.Scp049,         "SCP-049 (%playerName%)" },
+            { (uint)RoleTypeId.Scp0492,        "SCP-049-2 (%playerName%)" },
+            { (uint)RoleTypeId.Scp079,         "SCP-079 (%playerName%)" },
+            { (uint)RoleTypeId.Scp096,         "SCP-096 (%playerName%)" },
+            { (uint)RoleTypeId.Scp106,         "SCP-106 (%playerName%)" },
+            { (uint)RoleTypeId.Scp173,         "SCP-173 (%playerName%)" },
+            { (uint)RoleTypeId.Scp939,         "SCP-939 (%playerName%)" },
+            { (uint)RoleTypeId.ChaosConscript, "Conscript %secondName% (%playerName%)" },
+            { (uint)RoleTypeId.ChaosMarauder,  "Marauder %secondName% (%playerName%)" },
+            { (uint)RoleTypeId.ChaosRepressor, "Repressor %secondName% (%playerName%)" },
+            { (uint)RoleTypeId.ChaosRifleman,  "Rifleman %secondName% (%playerName%)" },
         };
 
         public List<string> FirstName { get; set; } = new List<string>()
@@ -72,7 +76,7 @@ namespace RpName
             "Justin",
             "Scott",
             "Brandon",
-            "Valentin",//Som Synapse Dev :)
+            "Valentin",
             "Oka",
             "Antonio",
             "Nils",
@@ -81,8 +85,9 @@ namespace RpName
             "Flo",
             "Sönke",
             "Mathe ",
-            "Adam", // random name lol
-            "Mouloud", // I dont ave the name of bonjemus :'(
+            "Adam", 
+            "Mouloud",
+            "Cristan"
         };
 
         public List<string> SecondName { get; set; } = new List<string>()

@@ -1,28 +1,43 @@
-﻿using Synapse.Api.Events.SynapseEventArguments;
+﻿using MEC;
+using Neuron.Core.Events;
+using Neuron.Core.Meta;
+using Synapse3.SynapseModule;
+using Synapse3.SynapseModule.Events;
 using System.Linq;
-using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace RpName
 {
-    public class EventsHandler
+    [Automatic]
+    public class EventsHandler : Listener
     {
-        public EventsHandler()
+        private readonly RpNamePlugin _plugin;
+
+        public EventsHandler(RpNamePlugin plugin, PlayerEvents playerEvents)
         {
-            Synapse.Api.Events.EventHandler.Get.Player.PlayerSetClassEvent += OnSetClass;
+            SynapseLogger<EventsHandler>.Info("EventsHandler");
+            _plugin = plugin;
+            playerEvents.SetClass.Subscribe(OnSetClass);
         }
 
-        private void OnSetClass(PlayerSetClassEventArgs ev)
+        private void OnSetClass(SetClassEvent ev)
         {
-            if (PluginClass.Config.RoleName != null && PluginClass.Config.RoleName.Any())
+            Timing.CallDelayed(0.1f, () => 
             {
-                var id = ev.Player.RoleID;
+                if (_plugin.Config.RoleName != null && _plugin.Config.RoleName.Any())
+                {
+                    var id = ev.Player.RoleID;
 
-                var name = PluginClass.GetName(id, ev.Player.NickName);
-                if (string.IsNullOrEmpty(name))
-                    ev.Player.name = ev.Player.NickName;
-                else
-                    ev.Player.name = name;
-            }
+                    if (id == 56)
+                        id = (uint)ev.Player.RoleType;
+                    var name = _plugin.GetName(id, ev.Player.NickName);
+                    if (string.IsNullOrEmpty(name))
+                        ev.Player.DisplayName = ev.Player.NickName;
+                    else
+                        ev.Player.DisplayName = name;
+                }
+            });
+            
         }
     }
 }
